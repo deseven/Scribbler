@@ -461,7 +461,13 @@ QImage SvgView::saveRenderToImage()
     QImage image(scene->sceneRect().size().toSize(), QImage::Format_ARGB32_Premultiplied);
     QPainter painter(&image);
     painter.setRenderHint(QPainter::Antialiasing);
+    painter.begin(&image);
+    painter.setCompositionMode(QPainter::CompositionMode_Clear);
+    painter.setBrush(QBrush(Qt::black,Qt::SolidPattern));
+    painter.drawRect(0,0,image.width(),image.height());
+    painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
     scene->render(&painter);
+    painter.end();
 
     return image;
 }
