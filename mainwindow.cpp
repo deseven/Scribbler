@@ -66,6 +66,8 @@ MainWindow::MainWindow(QWidget *parent) :
             this, SLOT(printAllSheets()));
     connect(ui->toolBar->addAction(QPixmap("://save.png"), tr("Save Sheets")), SIGNAL(triggered(bool)),
             this, SLOT(saveAllSheets()));
+    connect(ui->toolBar->addAction(QPixmap("://copy.png"), tr("Copy current sheet to clipboard")), SIGNAL(triggered(bool)),
+            this, SLOT(copySheet()));
 
     ui->toolBar->addSeparator();
 
@@ -557,7 +559,7 @@ void MainWindow::loadSettings()
 
 void MainWindow::preparePrinter(QPrinter *printer)
 {
-    QSettings settings("Settings.ini", QSettings::IniFormat);
+    QSettings settings(QSettings::IniFormat, QSettings::UserScope, "aizenbit", "Scribber");
     settings.beginGroup("Settings");
 
     QSizeF paperSize(settings.value("sheet-width", 210.0).toInt(), settings.value("sheet-height", 297.0).toInt());

@@ -476,7 +476,7 @@ void SvgView::loadFont(QString fontpath)
 {
     if (fontpath.isEmpty())
     {
-        QSettings settings("Settings.ini", QSettings::IniFormat);
+        QSettings settings(QSettings::IniFormat, QSettings::UserScope, "aizenbit", "Scribber");
         settings.beginGroup("Settings");
         fontpath = settings.value("last-used-font", QString()).toString();
         settings.endGroup();
@@ -532,7 +532,7 @@ void SvgView::loadFont(QString fontpath)
     fontSettings.endGroup();
     fontSettings.endGroup();
 
-    QSettings settings("Settings.ini", QSettings::IniFormat);
+    QSettings settings(QSettings::IniFormat, QSettings::UserScope, "aizenbit", "Scribber");
     settings.beginGroup("Settings");
     settings.setValue("last-used-font", QVariant(fontpath));
     settings.endGroup();
@@ -652,7 +652,7 @@ void SvgView::scaleViewBox(QDomElement &svgElement)
 
 void SvgView::loadSettingsFromFile()
 {
-    QSettings settings("Settings.ini", QSettings::IniFormat);
+    QSettings settings(QSettings::IniFormat, QSettings::UserScope, "aizenbit", "Scribber");
     settings.beginGroup("Settings");
     dpi = settings.value("dpi").toInt();
     dpmm = dpi / 25.4;

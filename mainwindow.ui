@@ -119,6 +119,9 @@
    <property name="text">
     <string>&amp;Save Current Sheet</string>
    </property>
+   <property name="toolTip">
+    <string>Save Current Sheet</string>
+   </property>
   </action>
   <action name="actionPreferences">
    <property name="enabled">

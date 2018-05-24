@@ -34,6 +34,8 @@ FORMS    += mainwindow.ui \
 CONFIG   += c++11 static-libstdc++
 
 RC_ICONS = resources\favicon.ico
+ICON = resources/favicon.icns
+QMAKE_INFO_PLIST = resources/Info.plist
 win32:RC_FILE = Scribbler.rc
 
 RESOURCES += \

@@ -9,5 +9,6 @@
         <file>border.png</file>
         <file>dark_cyan_dot.png</file>
         <file>dark_magnetta_dot.png</file>
+        <file>copy.png</file>
     </qresource>
 </RCC>

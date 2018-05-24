@@ -48,7 +48,7 @@ PreferencesDialog::~PreferencesDialog()
 
 void PreferencesDialog::loadSettingsToFile()
 {
-    QSettings settings("Settings.ini", QSettings::IniFormat);
+    QSettings settings(QSettings::IniFormat, QSettings::UserScope, "aizenbit", "Scribber");
     settings.beginGroup("Settings");
     settings.setValue("dpi", QVariant(ui->dpiSpinBox->value()));
     settings.setValue("letter-spacing", QVariant(ui->letterSpacingSpinBox->value()));
@@ -99,7 +99,10 @@ void PreferencesDialog::loadSettingsToFile()
 
 void PreferencesDialog::loadSettingsFromFile(bool loadDefault)
 {
-    QSettings settings(loadDefault ? "" : "Settings.ini", QSettings::IniFormat);
+    QSettings settings(QSettings::IniFormat, QSettings::UserScope, "aizenbit", "Scribber");
+    if (loadDefault) {
+        QSettings settings("");
+    }
     settings.beginGroup("Settings");
     ui->dpiSpinBox->setValue(           settings.value("dpi", 300).toInt());
     ui->letterSpacingSpinBox->setValue( settings.value("letter-spacing", 1.0).toDouble());
@@ -161,7 +164,7 @@ void PreferencesDialog::setSheetSize(int size)
     if (changedByProgram) //dont use this function if values of spinBoxes
         return;           //are changed by program, not by user
 
-    QSettings settings("Settings.ini", QSettings::IniFormat);
+    QSettings settings(QSettings::IniFormat, QSettings::UserScope, "aizenbit", "Scribber");
     settings.beginGroup("Settings");
     bool isVertical = settings.value("is-sheet-orientation-vertical", true).toBool();
     settings.endGroup();
