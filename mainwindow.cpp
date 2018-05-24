@@ -26,6 +26,8 @@ MainWindow::MainWindow(QWidget *parent) :
             this, SLOT(loadFont()));
     connect(ui->actionFont_Editor, SIGNAL(triggered()),
             fontDialog, SLOT(exec()));
+    connect(ui->actionCopy_Current_Sheet, SIGNAL(triggered()),
+            this, SLOT(copySheet()));
     connect(ui->actionSave_Current_Sheet_as, SIGNAL(triggered()),
             this, SLOT(saveSheet()));
     connect(ui->actionSave_All_Sheets, SIGNAL(triggered()),
@@ -339,6 +341,16 @@ void MainWindow::loadFont()
     file.close();
 
     ui->svgView->loadFont(fileName);
+}
+
+void MainWindow::copySheet()
+{
+    QClipboard *clipboard = QGuiApplication::clipboard();
+
+    ui->svgView->hideBorders(true);
+    clipboard->clear(QClipboard::Clipboard);
+    clipboard->setImage(ui->svgView->saveRenderToImage(),QClipboard::Clipboard);
+    ui->svgView->hideBorders(false);
 }
 
 void MainWindow::saveSheet(QString fileName)

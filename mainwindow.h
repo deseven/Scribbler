@@ -24,6 +24,7 @@
 #include <QtPrintSupport/QPrintDialog>
 #include <QtPrintSupport/QPrinter>
 #include <QtGui/QWheelEvent>
+#include <QClipboard>
 
 #include "preferencesdialog.h"
 #include "fontdialog.h"
@@ -80,6 +81,7 @@ private slots:
     void renderPreviousSheet();
     void updateCurrentSheet();
     void loadFont();
+    void copySheet();
     void saveSheet(QString fileName = QString());
     void saveAllSheets();
     void printSheet();

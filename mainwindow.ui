@@ -42,7 +42,7 @@
      <x>0</x>
      <y>0</y>
      <width>778</width>
-     <height>25</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -52,7 +52,7 @@
     <addaction name="actionConvert_to_Handwritten"/>
     <addaction name="actionLoad_Text_from_File"/>
     <addaction name="separator"/>
-    <addaction name="separator"/>
+    <addaction name="actionCopy_Current_Sheet"/>
     <addaction name="actionSave_Current_Sheet_as"/>
     <addaction name="actionSave_All_Sheets"/>
     <addaction name="separator"/>
@@ -185,6 +185,14 @@
   <action name="actionShortcuts">
    <property name="text">
     <string>&amp;Shortcuts</string>
+   </property>
+  </action>
+  <action name="actionCopy_Current_Sheet">
+   <property name="text">
+    <string>&amp;Copy Current Sheet</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+С</string>
    </property>
   </action>
  </widget>
