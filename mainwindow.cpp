@@ -189,8 +189,9 @@ void MainWindow::showLicensesBox()
                                    "<a href=https://github.com/aksenoff>aksenoff</a>, "
                                    "<a href=https://virink.com/domerk>Daniel Domerk</a>, "
                                    "<a href=https://github.com/dive155>dive155</a>, "
-                                   "<a href=http://www.livelib.ru/reader/Azure_wave>Anastasiya Belozerskaya</a> "
-                                   "and Julia for a help. =)"));
+                                   "<a href=http://www.livelib.ru/reader/Azure_wave>Anastasiya Belozerskaya</a>, "
+                                   "Julia and all "
+                                   "<a href=https://github.com/aizenbit/Scribbler/graphs/contributors>contributors</a> for a help. =)"));
     aboutBox.exec();
 }
 
@@ -501,9 +502,8 @@ void MainWindow::printAllSheets()
     {                                                             //i.e. while printing all sheets
         renderNextSheet();
 
-        if (printer.fromPage() != 0 && printer.fromPage() > currentSheetNumber + 1)
-            continue;
-        if (printer.toPage() != 0 && printer.toPage() < currentSheetNumber + 1)
+        if ((printer.fromPage() != 0 && printer.fromPage() > currentSheetNumber + 1)     //we're not going out of page range
+				|| (printer.toPage() != 0 && printer.toPage() < currentSheetNumber + 1)) //defined by user
             continue;
 
         QImage image = ui->svgView->saveRenderToImage();
@@ -513,11 +513,9 @@ void MainWindow::printAllSheets()
 
         painter.drawImage(0, 0, image);
 
-        if (ui->toolBar->actions()[ToolButton::Next]->isEnabled() //if "Next Sheet" tool button is enabled,
-               && (printer.toPage() != 0                          //i.e this sheet is not the last,
-                   && currentSheetNumber + 1 < printer.toPage())) //and we're not going out of page range
-            printer.newPage();                                    //defined by user
-    }
+        if (ui->toolBar->actions()[ToolButton::Next]->isEnabled()) //if "Next Sheet" tool button is enabled,
+            printer.newPage();                                     //i.e this sheet is not the last
+	}
 
     painter.end();
     ui->svgView->hideBorders(false);
@@ -568,6 +566,7 @@ void MainWindow::preparePrinter(QPrinter *printer)
     printer->setPaperSize(paperSize, QPrinter::Millimeter);
     printer->setResolution(settings.value("dpi", 300).toInt());
     printer->setOrientation(isPortrait ? QPrinter::Portrait : QPrinter::Landscape);
+	printer->setDoubleSidedPrinting(true);
 
     settings.endGroup();
 }
